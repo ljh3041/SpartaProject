@@ -76,7 +76,7 @@ void ASpawnMeteorVolume::StartWave(int32 Amount)
 
 void ASpawnMeteorVolume::SpawnWaveItem()
 {
-    if (CurrentSpawnCount >= SpawnCount - 1)  // 목표 개수만큼 스폰하면 타이머 종료
+    if (CurrentSpawnCount >= SpawnCount - 2)  // 목표 개수만큼 스폰하면 타이머 종료
     {
         GetWorldTimerManager().ClearTimer(WaveSpawnTimerHandle);
         return;
