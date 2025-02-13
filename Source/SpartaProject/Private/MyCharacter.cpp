@@ -217,7 +217,7 @@ void AMyCharacter::ReturnSlowing()
 //조작 반대 함수
 void AMyCharacter::ReverseControl()
 {
-	control *= -1;
+	control = -1;
 
 	// 2초후 원래상태로.
 	GetWorldTimerManager().SetTimer(
@@ -231,7 +231,7 @@ void AMyCharacter::ReverseControl()
 
 void AMyCharacter::ReturnControl()
 {
-	control *= -1;
+	control = 1;
 }
 
 // 데미지 처리 함수

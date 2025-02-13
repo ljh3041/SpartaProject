@@ -25,8 +25,13 @@ void AMineItem::ActivateItem(AActor* Activator)
 
     GetWorld()->GetTimerManager().SetTimer(
         ExplosionTimerHandle,
-        this,
-        &AMineItem::Explode,
+        [this]()
+        {
+            if (IsValid(this))  // 객체가 유효한지 확인
+            {
+                Explode();
+            }
+        },
         ExplosionDelay,
         false
     );
@@ -85,7 +90,10 @@ void AMineItem::Explode()
             DestroyParticleTimerHandle,
             [Particle]()
             {
-                Particle->DestroyComponent();
+                if (IsValid(Particle)) // 유효성 체크
+                {
+                    Particle->DestroyComponent();
+                }
             },
             2.0f,
             false

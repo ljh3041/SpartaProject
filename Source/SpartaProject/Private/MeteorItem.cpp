@@ -75,7 +75,10 @@ void AMeteorItem::Explode()
             DestroyParticleTimerHandle,
             [Particle]()
             {
-                Particle->DestroyComponent();
+                if (IsValid(Particle)) // 유효성 체크
+                {
+                    Particle->DestroyComponent();
+                }
             },
             2.0f,
             false
@@ -87,11 +90,15 @@ void AMeteorItem::BeginPlay()
 {
     Super::BeginPlay();
 
-    // 생성 후 0.1초 뒤에 폭발하도록 타이머 설정
     GetWorld()->GetTimerManager().SetTimer(
         ExplosionTimerHandle,
-        this,
-        &AMeteorItem::Explode,
+        [this]()
+        {
+            if (IsValid(this))  // 유효한 객체인지 확인
+            {
+                Explode();
+            }
+        },
         ExplosionDelay,
         false
     );

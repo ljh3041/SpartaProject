@@ -88,7 +88,10 @@ void ABaseItem::ActivateItem(AActor* Activator)
             DestroyParticleTimerHandle,
             [Particle]()
             {
-                Particle->DestroyComponent();
+                if (IsValid(Particle)) // 유효성 체크
+                {
+                    Particle->DestroyComponent();
+                }
             },
             2.0f,
             false
